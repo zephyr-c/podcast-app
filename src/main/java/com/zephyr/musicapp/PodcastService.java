@@ -51,6 +51,7 @@ public class PodcastService {
 
     private PodcastDto mapToDto(final Podcast podcast){
         return PodcastDto.builder()
+                .id(podcast.getId())
                 .name(podcast.getName())
                 .description(podcast.getDescription())
                 .sourceUrl(podcast.getSourceUrl())
