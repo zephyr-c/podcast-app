@@ -6,30 +6,37 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
 @Getter
 @Setter
 public class Podcast {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "primary_sequence",
+            sequenceName = "primary_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = SEQUENCE, generator = "primary_sequence")
     private Long id;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default ''")
     private String name;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text default ''")
     private String description;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default ''")
     private String sourceUrl;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default ''")
     private String audioUrl;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default ''")
     private String imageUrl;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default ''")
     private String title;
 }

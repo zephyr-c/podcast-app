@@ -62,12 +62,24 @@ public class PodcastService {
     }
 
     private Podcast mapToEntity(final PodcastDto podcastDto, final Podcast podcast) {
-        podcast.setName(podcastDto.getName());
-        podcast.setDescription(podcastDto.getDescription());
-        podcast.setSourceUrl(podcastDto.getSourceUrl());
-        podcast.setAudioUrl(podcastDto.getAudioUrl());
-        podcast.setImageUrl(podcastDto.getImageUrl());
-        podcast.setTitle(podcastDto.getTitle());
+        podcast.setName(podcastDto.getName() != null
+                ? podcastDto.getName()
+                : podcast.getName());
+        podcast.setDescription(podcastDto.getDescription() != null
+                ? podcastDto.getDescription()
+                : podcast.getDescription());
+        podcast.setSourceUrl(podcastDto.getSourceUrl() != null
+                ? podcastDto.getSourceUrl()
+                : podcast.getSourceUrl());
+        podcast.setAudioUrl(podcastDto.getAudioUrl() != null
+                ? podcastDto.getAudioUrl()
+                : podcast.getAudioUrl());
+        podcast.setImageUrl(podcastDto.getImageUrl() != null
+                ? podcastDto.getImageUrl()
+                : podcast.getImageUrl());
+        podcast.setTitle(podcastDto.getTitle() != null
+                ? podcastDto.getTitle()
+                : podcast.getTitle());
         return podcast;
     }
 }
