@@ -1,6 +1,5 @@
-package com.zephyr.musicapp;
+package com.zephyr.musicapp.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,13 +28,13 @@ public class Podcast {
     private String description;
 
     @Column(columnDefinition = "varchar(255) default ''")
-    private String sourceUrl;
+    private String source;
 
     @Column(columnDefinition = "varchar(255) default ''")
-    private String audioUrl;
+    private String audio;
 
     @Column(columnDefinition = "varchar(255) default ''")
-    private String imageUrl;
+    private String image;
 
     @Column(columnDefinition = "varchar(255) default ''")
     private String title;

@@ -1,7 +1,8 @@
-package com.zephyr.musicapp;
+package com.zephyr.musicapp.service;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.zephyr.musicapp.repo.PodcastRepository;
+import com.zephyr.musicapp.dto.PodcastDto;
+import com.zephyr.musicapp.model.Podcast;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -46,6 +47,8 @@ public class PodcastService {
     }
 
     public void delete(final Long id){
+        podcastRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         podcastRepository.deleteById(id);
     }
 
@@ -54,9 +57,9 @@ public class PodcastService {
                 .id(podcast.getId())
                 .name(podcast.getName())
                 .description(podcast.getDescription())
-                .sourceUrl(podcast.getSourceUrl())
-                .audioUrl(podcast.getAudioUrl())
-                .imageUrl(podcast.getImageUrl())
+                .sourceUrl(podcast.getSource())
+                .audioUrl(podcast.getAudio())
+                .imageUrl(podcast.getImage())
                 .title(podcast.getTitle())
                 .build();
     }
@@ -68,15 +71,15 @@ public class PodcastService {
         podcast.setDescription(podcastDto.getDescription() != null
                 ? podcastDto.getDescription()
                 : podcast.getDescription());
-        podcast.setSourceUrl(podcastDto.getSourceUrl() != null
+        podcast.setSource(podcastDto.getSourceUrl() != null
                 ? podcastDto.getSourceUrl()
-                : podcast.getSourceUrl());
-        podcast.setAudioUrl(podcastDto.getAudioUrl() != null
+                : podcast.getSource());
+        podcast.setAudio(podcastDto.getAudioUrl() != null
                 ? podcastDto.getAudioUrl()
-                : podcast.getAudioUrl());
-        podcast.setImageUrl(podcastDto.getImageUrl() != null
+                : podcast.getAudio());
+        podcast.setImage(podcastDto.getImageUrl() != null
                 ? podcastDto.getImageUrl()
-                : podcast.getImageUrl());
+                : podcast.getImage());
         podcast.setTitle(podcastDto.getTitle() != null
                 ? podcastDto.getTitle()
                 : podcast.getTitle());
