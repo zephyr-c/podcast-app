@@ -38,4 +38,10 @@ public class Podcast {
 
     @Column(columnDefinition = "varchar(255) default ''")
     private String title;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer numLikes;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer numDislikes;
 }

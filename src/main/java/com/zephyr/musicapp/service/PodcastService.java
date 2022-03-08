@@ -61,8 +61,11 @@ public class PodcastService {
                 .audioUrl(podcast.getAudio())
                 .imageUrl(podcast.getImage())
                 .title(podcast.getTitle())
+                .numLikes(podcast.getNumLikes())
+                .numDislikes(podcast.getNumDislikes())
                 .build();
     }
+
 
     private Podcast mapToEntity(final PodcastDto podcastDto, final Podcast podcast) {
         podcast.setName(podcastDto.getName() != null
@@ -83,6 +86,13 @@ public class PodcastService {
         podcast.setTitle(podcastDto.getTitle() != null
                 ? podcastDto.getTitle()
                 : podcast.getTitle());
+        podcast.setNumLikes(podcastDto.getNumLikes() != null
+                ? podcastDto.getNumLikes()
+                : podcast.getNumLikes() != null
+                ? podcast.getNumLikes() : 0);
+        podcast.setNumDislikes(podcastDto.getNumDislikes() != null
+                ? podcastDto.getNumDislikes()
+                : podcast.getNumDislikes() != null ? podcast.getNumDislikes() : 0);
         return podcast;
     }
 }

@@ -24,4 +24,8 @@ public class PodcastDto {
     private String imageUrl;
 
     private String title;
+
+    private Integer numLikes;
+
+    private Integer numDislikes;
 }
