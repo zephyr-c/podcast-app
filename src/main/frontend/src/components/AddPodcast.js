@@ -4,6 +4,9 @@ import TextField from "@mui/material/TextField";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
+const mockServer = "https://84673c10-eb52-414e-8426-725be112dc87.mock.pstmn.io/api/podcasts"
+const axios = require('axios');
+
 const useStyles = makeStyles((theme) => ({
     dialogContent: {
         display: "flex",
@@ -12,11 +15,13 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+const podcastAPI = "http://localhost:8080/api/podcasts"
+
 function InputField({id, label, type, content, handleChange}){
     return (<TextField margin="dense" id={id} label={label} type={type} defaultValue={content} onChange={(e) => handleChange(e.target.value)}/>)
 }
 
-export default function AddPodcast() {
+export default function AddPodcast({dispatch}) {
     const classes = useStyles();
     
     const [open, setOpen] = useState(false);
@@ -36,16 +41,33 @@ export default function AddPodcast() {
     }
 
     const handleSubmit = () => {
-        const data = {
+        const newPodcast = {
             "name": name,
             "title": title,
-            "image": image,
-            "source": source,
-            "audio": audio,
+            "imageUrl": image,
+            "sourceUrl": source,
+            "audioUrl": audio,
             "description": description
         }
+        axios.post(mockServer, newPodcast)
+        .then((response) => {
+          if(response.status === 201){
+            dispatch({type: 'add', data: newPodcast})
+            console.log("succuessfully added ", newPodcast)
+          }
+        })
+        .catch((error) => {
+          if (error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request)
+          } else {
+            console.log('Error', error.message)
+          }
+        })
 
-        console.log(data)
+        // console.log(newPodcast)
         handleClose();
     }
 
