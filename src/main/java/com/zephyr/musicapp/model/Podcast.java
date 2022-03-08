@@ -75,7 +75,6 @@ public class Podcast {
             case "title":
                 setTitle(newValue);
                 break;
-
         }
     }
 }

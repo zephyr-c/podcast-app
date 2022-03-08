@@ -45,21 +45,17 @@ public class PodcastController {
         return new ResponseEntity<>(podcastService.update(id, updates), HttpStatus.ACCEPTED);
     }
 
-//    @PutMapping("/{id}/like")
-//    public ResponseEntity<Void> likePodcast(@PathVariable final Long id) {
-//        PodcastDto podcast = podcastService.get(id);
-//        podcast.setNumLikes(podcast.getNumLikes() + 1);
-//        podcastService.update(id, podcast);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @PutMapping("/{id}/dislike")
-//    public ResponseEntity<Void> dislikePodcast(@PathVariable final Long id) {
-//        PodcastDto podcast = podcastService.get(id);
-//        podcast.setNumDislikes(podcast.getNumDislikes() + 1);
-//        podcastService.update(id, podcast);
-//        return ResponseEntity.ok().build();
-//    }
+    @PutMapping("/{id}/like")
+    public ResponseEntity<Void> likePodcast(@PathVariable final Long id) {
+        podcastService.likePodcast(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/dislike")
+    public ResponseEntity<Void> dislikePodcast(@PathVariable final Long id) {
+        podcastService.dislikePodcast(id);
+        return ResponseEntity.ok().build();
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePodcast(@PathVariable final Long id) {

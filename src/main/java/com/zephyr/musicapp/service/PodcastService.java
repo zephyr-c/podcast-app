@@ -37,7 +37,6 @@ public class PodcastService {
     public Long create(final PodcastDto podcastDto){
         final Podcast podcast = mapNewPodcast(podcastDto);
         return podcastRepository.save(podcast).getId();
-
     }
 
     public PodcastDto update(final Long id, final HashMap<String, String> updates){
@@ -46,6 +45,20 @@ public class PodcastService {
         updatePodcast(podcast, updates);
         podcastRepository.save(podcast);
         return mapToDto(podcast);
+    }
+
+    public void likePodcast(final Long id){
+        final Podcast podcast = podcastRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        podcast.like();
+        podcastRepository.save(podcast);
+    }
+
+    public void dislikePodcast(final Long id){
+        final Podcast podcast = podcastRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        podcast.dislike();
+        podcastRepository.save(podcast);
     }
 
     public void delete(final Long id){
@@ -77,8 +90,8 @@ public class PodcastService {
                 .audio(podcastDto.getAudioUrl())
                 .image(podcastDto.getImageUrl())
                 .title(podcastDto.getTitle())
-                .numLikes(0)
-                .numDislikes(0)
+                .numLikes(podcastDto.getNumLikes() == null ? 0 : podcastDto.getNumLikes())
+                .numDislikes(podcastDto.getNumDislikes() == null ? 0 : podcastDto.getNumDislikes())
                 .build();
 
     }
