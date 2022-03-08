@@ -1,7 +1,6 @@
 package com.zephyr.musicapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +9,9 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Podcast {
 
     @Id
@@ -44,4 +46,36 @@ public class Podcast {
 
     @Column(columnDefinition = "integer default 0")
     private Integer numDislikes;
+
+    public void like(){
+        setNumLikes(this.numLikes + 1);
+    }
+
+    public void dislike(){
+        setNumDislikes(this.numDislikes + 1);
+    }
+
+    public void updateField(String field, String newValue){
+        switch(field) {
+            case "name":
+                setName(newValue);
+                break;
+            case "description":
+                setDescription(newValue);
+                break;
+            case "sourceUrl":
+                setSource(newValue);
+                break;
+            case "audioUrl":
+                setAudio(newValue);
+                break;
+            case "imgUrl":
+                setImage(newValue);
+                break;
+            case "title":
+                setTitle(newValue);
+                break;
+
+        }
+    }
 }

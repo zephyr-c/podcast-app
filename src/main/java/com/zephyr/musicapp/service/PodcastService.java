@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 public class PodcastService {
@@ -33,17 +35,17 @@ public class PodcastService {
     }
 
     public Long create(final PodcastDto podcastDto){
-        final Podcast podcast = new Podcast();
-        mapToEntity(podcastDto, podcast);
+        final Podcast podcast = mapNewPodcast(podcastDto);
         return podcastRepository.save(podcast).getId();
 
     }
 
-    public void update(final Long id, final PodcastDto podcastDto){
+    public PodcastDto update(final Long id, final HashMap<String, String> updates){
         final Podcast podcast = podcastRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        mapToEntity(podcastDto, podcast);
+        updatePodcast(podcast, updates);
         podcastRepository.save(podcast);
+        return mapToDto(podcast);
     }
 
     public void delete(final Long id){
@@ -66,33 +68,24 @@ public class PodcastService {
                 .build();
     }
 
+    private Podcast mapNewPodcast(final PodcastDto podcastDto){
+        return Podcast.builder()
+                .id(podcastDto.getId())
+                .name(podcastDto.getName())
+                .description(podcastDto.getDescription())
+                .source(podcastDto.getSourceUrl())
+                .audio(podcastDto.getAudioUrl())
+                .image(podcastDto.getImageUrl())
+                .title(podcastDto.getTitle())
+                .numLikes(0)
+                .numDislikes(0)
+                .build();
 
-    private Podcast mapToEntity(final PodcastDto podcastDto, final Podcast podcast) {
-        podcast.setName(podcastDto.getName() != null
-                ? podcastDto.getName()
-                : podcast.getName());
-        podcast.setDescription(podcastDto.getDescription() != null
-                ? podcastDto.getDescription()
-                : podcast.getDescription());
-        podcast.setSource(podcastDto.getSourceUrl() != null
-                ? podcastDto.getSourceUrl()
-                : podcast.getSource());
-        podcast.setAudio(podcastDto.getAudioUrl() != null
-                ? podcastDto.getAudioUrl()
-                : podcast.getAudio());
-        podcast.setImage(podcastDto.getImageUrl() != null
-                ? podcastDto.getImageUrl()
-                : podcast.getImage());
-        podcast.setTitle(podcastDto.getTitle() != null
-                ? podcastDto.getTitle()
-                : podcast.getTitle());
-        podcast.setNumLikes(podcastDto.getNumLikes() != null
-                ? podcastDto.getNumLikes()
-                : podcast.getNumLikes() != null
-                ? podcast.getNumLikes() : 0);
-        podcast.setNumDislikes(podcastDto.getNumDislikes() != null
-                ? podcastDto.getNumDislikes()
-                : podcast.getNumDislikes() != null ? podcast.getNumDislikes() : 0);
-        return podcast;
+    }
+
+    private void updatePodcast(final Podcast podcast, HashMap<String, String> updates) {
+        for(String field : updates.keySet()){
+            podcast.updateField(field, updates.get(field));
+        }
     }
 }

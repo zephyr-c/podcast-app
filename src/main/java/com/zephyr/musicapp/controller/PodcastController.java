@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.HashMap;
+
+// TODO: Add error checking to endpoints?
+// TODO: Evaluate endpoint strategy for likes and dislikes, decide where that functionality lives
 
 @RestController
 @RequestMapping(value = "api/podcasts")
@@ -36,27 +40,26 @@ public class PodcastController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePodcast(@PathVariable final Long id,
-                                              @RequestBody @Valid final PodcastDto podcastDto) {
-        podcastService.update(id, podcastDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<PodcastDto> updatePodcast(@PathVariable final Long id,
+                                              @RequestBody @Valid final HashMap<String, String> updates) {
+        return new ResponseEntity<>(podcastService.update(id, updates), HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/{id}/like")
-    public ResponseEntity<Void> likePodcast(@PathVariable final Long id) {
-        PodcastDto podcast = podcastService.get(id);
-        podcast.setNumLikes(podcast.getNumLikes() + 1);
-        podcastService.update(id, podcast);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{id}/dislike")
-    public ResponseEntity<Void> dislikePodcast(@PathVariable final Long id) {
-        PodcastDto podcast = podcastService.get(id);
-        podcast.setNumDislikes(podcast.getNumDislikes() + 1);
-        podcastService.update(id, podcast);
-        return ResponseEntity.ok().build();
-    }
+//    @PutMapping("/{id}/like")
+//    public ResponseEntity<Void> likePodcast(@PathVariable final Long id) {
+//        PodcastDto podcast = podcastService.get(id);
+//        podcast.setNumLikes(podcast.getNumLikes() + 1);
+//        podcastService.update(id, podcast);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @PutMapping("/{id}/dislike")
+//    public ResponseEntity<Void> dislikePodcast(@PathVariable final Long id) {
+//        PodcastDto podcast = podcastService.get(id);
+//        podcast.setNumDislikes(podcast.getNumDislikes() + 1);
+//        podcastService.update(id, podcast);
+//        return ResponseEntity.ok().build();
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePodcast(@PathVariable final Long id) {
