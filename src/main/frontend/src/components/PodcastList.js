@@ -1,4 +1,6 @@
 import React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import AddPodcast from './AddPodcast';
 import Podcast from './Podcast';
 
@@ -11,9 +13,17 @@ const exampleData = {
       "title": "The Tension of Art and Science When Communicating Complex User Research"
     }
 
-export default function PodcastList(){
+export default function PodcastList({ data }){
 
-    return (<div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <Podcast name={exampleData.name} title={exampleData.title} image={exampleData.image} source={exampleData.source} audio={exampleData.audio} description={exampleData.description} />
+    return (
+    <div style={{display: "flex", flexFlow: "column", alignItems: "center"}}>
+    <List>
+        {data.map((podcast, idx) => {
+            return (
+            <ListItem>
+                <Podcast key={idx} name={podcast.name} title={podcast.title} image={podcast.imageUrl} source={podcast.sourceUrl} audio={podcast.audioUrl} description={podcast.description} />
+            </ListItem>)
+        })}
+    </List>
     </div>)
 }

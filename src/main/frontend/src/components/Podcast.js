@@ -4,6 +4,7 @@ import {Card, CardContent, CardMedia, CardActionArea} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddPodcast from "./AddPodcast";
+import podcast_placeholder from '../podcast_placeholder.jpg';
 
 const useStyles = makeStyles((theme) => ({
     podcastCard: {
@@ -28,11 +29,15 @@ export default function Podcast({name, title, image, source, audio, description}
     const classes = useStyles();
     const [open, setOpen] = useState(false)
     return (<div>
-        <Card>
-            <CardActionArea style={{display: "flex"}}>
+        <Card style={{width: "50vw"}}>
+            <CardActionArea style={{display: "grid", gridTemplateColumns: "150px 1fr 50px"}}>
             <CardMedia component="img" 
             src={image} alt="Podcast Cover" 
-            style={{height: 75, width: 75, paddingLeft: 5}}/>
+            style={{height: 75, width: 75, justifySelf: "center"}}
+            onError={event => {
+                event.target.src = podcast_placeholder
+                event.onerror = null 
+                }}/>
             <Box>
                 <CardContent>
                     <Typography gutterBottom variant="h6" component="div">{name}</Typography>

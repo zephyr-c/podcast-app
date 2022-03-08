@@ -6,25 +6,24 @@ import AddPodcast from './components/AddPodcast';
 
 
 const axios = require('axios');
+const mockServer = "https://84673c10-eb52-414e-8426-725be112dc87.mock.pstmn.io/api/podcasts"
 
 function App() {
   const [podcasts, setPodcasts] = useState([]);
-  // useEffect(() => {
-  //   axios.get("localhost:8080/api/podcasts")
-  //       .then(function(response) {
-  //     console.log(response)
-  //   })
-  //       .catch(function (error) {
-  //         console.log(error)
-  //       })
-  //       .then(function() {
-  //         console.log("performed effect")
-  //       });
-  // })
+  useEffect(() => {
+    axios.get(mockServer)
+    .then((response) => {
+      setPodcasts(response.data)
+    })
+    .then(function(){
+      console.log("performed effect")
+      console.log("podcasts: ", podcasts)
+    })
+  }, [])
   return (
     <div className="App">
       <header>Podcast App</header>
-      <PodcastList />
+      <PodcastList data={podcasts}/>
       <AddPodcast />
     </div>
   );
