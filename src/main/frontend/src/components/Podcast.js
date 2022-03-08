@@ -1,8 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { makeStyles } from "@mui/styles";
 import {Card, CardContent, CardMedia, CardActionArea} from "@mui/material";
+import {Dialog, DialogContent, DialogActions} from "@mui/material";
+import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow"
+import PauseIcon from '@mui/icons-material/Pause';
 import AddPodcast from "./AddPodcast";
 import podcast_placeholder from '../podcast_placeholder.jpg';
 
@@ -28,9 +33,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Podcast({name, title, image, source, audio, description}){
     const classes = useStyles();
     const [open, setOpen] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioElement = useRef(null)
+
+    const handlePlayClick = () => {
+        if (isPlaying) {
+            audioElement.current.pause();
+            setIsPlaying(false);
+        } else {
+            audioElement.current.play();
+            setIsPlaying(true);
+        }
+    }
+
+    const handleClose = () => {
+        setIsPlaying(false);
+        setOpen(false);
+    }
+
     return (<div>
         <Card style={{width: "50vw"}}>
-            <CardActionArea style={{display: "grid", gridTemplateColumns: "150px 1fr 50px"}}>
+            <CardActionArea style={{display: "grid", gridTemplateColumns: "150px 1fr 50px"}} onClick={()=> setOpen(true)}>
             <CardMedia component="img" 
             src={image} alt="Podcast Cover" 
             style={{height: 75, width: 75, justifySelf: "center"}}
@@ -46,5 +69,35 @@ export default function Podcast({name, title, image, source, audio, description}
             </Box>
             </CardActionArea>
         </Card>
+
+        <Dialog open={open} onBackdropClick={handleClose}>
+            <DialogContent>
+                <Card>
+                    <audio src={audio} ref={audioElement}/>
+                    <Box style={{display: 'flex', flexDirection: 'column'}}>
+                        <CardContent>
+                            <Typography>
+                                {title}
+                            </Typography>
+                            <Typography>
+                                {name}
+                            </Typography>
+                        </CardContent>
+                        <Box>
+                            <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                                {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+                            </IconButton>
+                        </Box>
+                    </Box>
+                    <CardMedia component="img" src={image} alt="PodcastCover" />
+                </Card>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>Close</Button>
+            </DialogActions>
+
+        </Dialog>
+
+
     </div>)
 }
