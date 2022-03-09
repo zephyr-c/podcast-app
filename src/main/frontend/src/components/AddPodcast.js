@@ -50,7 +50,8 @@ export default function AddPodcast({dispatch}) {
         addPodcast(newPodcast)
         .then((response) => {
           if(response.status === 201){
-            dispatch(actionAddPodcast(newPodcast))
+            console.log(response)
+            dispatch(actionAddPodcast({...newPodcast, id: response.data}))
             console.log("succuessfully added ", newPodcast)
           }
         })

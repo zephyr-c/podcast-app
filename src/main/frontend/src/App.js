@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <header>Podcast App</header>
-      <PodcastList data={state.podcasts} dispatch={dispatch} />
+      <PodcastList data={state.podcasts} sortBy={state.sortBy} dispatch={dispatch} />
       <AddPodcast dispatch={dispatch}/>
     </div>
   );

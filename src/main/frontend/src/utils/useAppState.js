@@ -1,16 +1,21 @@
 import { useReducer } from 'react';
-import { LOAD, ADD, LIKE, DISLIKE } from './actions';
+import { LOAD, ADD, LIKE, DISLIKE, SORT } from './actions';
 
 function reducer(state, action){
   switch (action.type){
     case LOAD:
-      return {podcasts: action.data};
+      return {...state, podcasts: action.data};
     case ADD:
-      return {podcasts: [...state.podcasts, action.data]};
+      return {...state, podcasts: [...state.podcasts, action.data]};
     case LIKE:
-        return {podcasts: updateLikes([...state.podcasts], action.id, "like")};
+        return {...state, podcasts: updateLikes([...state.podcasts], action.id, "like")};
     case DISLIKE:
-        return {podcasts: updateLikes([...state.podcasts], action.id, "dislike")};
+        return {...state, podcasts: updateLikes([...state.podcasts], action.id, "dislike")};
+    case SORT:
+        return {...state, sortBy: action.sortValue}
+      // let copy = [...state.podcasts]
+      // sortList(copy, action.sortValue)
+      // return {...state, podcasts: copy}
     default:
       throw new Error();
   }
@@ -26,8 +31,18 @@ function updateLikes(podcasts, id, vote){
     }
 }
 
+function sortList(list, option){
+    const options = {
+        name: 'name',
+        title: 'title',
+    }
+    const sortValue = options[option];
+    const sorted = list.sort((a, b) => (a[sortValue] > b[sortValue]) ? 1 : -1);
+    console.log(sorted[0][sortValue])
+        }
+
 export default function useAppState() {
-    const [state, dispatch] = useReducer(reducer, {podcasts: []})
+    const [state, dispatch] = useReducer(reducer, {podcasts: [], sortBy: 'id'})
 
     return {state: state, dispatch: dispatch}
 }

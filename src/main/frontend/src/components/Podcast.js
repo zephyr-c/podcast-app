@@ -6,8 +6,6 @@ import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow"
-import PauseIcon from '@mui/icons-material/Pause';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import {styled, spacing} from '@mui/system';
@@ -41,10 +39,6 @@ export default function Podcast({name, title, image, source, audio, description,
     const [open, setOpen] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false);
     const audioElement = useRef(null)
-
-    useEffect(()=> {
-        console.log("change detected");
-    }, [likes])
 
     const handlePlayClick = () => {
         if (isPlaying) {
