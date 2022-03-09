@@ -1,11 +1,9 @@
 import React, {useState} from "react";
+import { addPodcast } from '../utils/api';
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
-const mockServer = "https://84673c10-eb52-414e-8426-725be112dc87.mock.pstmn.io/api/podcasts"
-const axios = require('axios');
 
 const useStyles = makeStyles((theme) => ({
     dialogContent: {
@@ -14,8 +12,6 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-
-const podcastAPI = "http://localhost:8080/api/podcasts"
 
 function InputField({id, label, type, content, handleChange}){
     return (<TextField margin="dense" id={id} label={label} type={type} defaultValue={content} onChange={(e) => handleChange(e.target.value)}/>)
@@ -47,9 +43,10 @@ export default function AddPodcast({dispatch}) {
             "imageUrl": image,
             "sourceUrl": source,
             "audioUrl": audio,
-            "description": description
+            "description": description,
         }
-        axios.post(mockServer, newPodcast)
+
+        addPodcast(newPodcast)
         .then((response) => {
           if(response.status === 201){
             dispatch({type: 'add', data: newPodcast})
@@ -67,7 +64,6 @@ export default function AddPodcast({dispatch}) {
           }
         })
 
-        // console.log(newPodcast)
         handleClose();
     }
 

@@ -8,7 +8,9 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow"
 import PauseIcon from '@mui/icons-material/Pause';
-import AddPodcast from "./AddPodcast";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import {styled, spacing} from '@mui/system';
 import podcast_placeholder from '../podcast_placeholder.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,14 +29,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// one component/card for thumbnail and title
-// onClick of that card, opens 'player' modal with all details
+const _IconButton = styled('IconButton')({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+})
 
-export default function Podcast({name, title, image, source, audio, description}){
+// TODO: Style player modal, structure layout, add description
+// TODO: Add buttons for likes and dislikes
+// TODO: Add functionality for likes and dislikes
+// TODO: look into uploader(for songs?)
+
+export default function Podcast({key, name, title, image, source, audio, description, likes, dislikes, id}){
     const classes = useStyles();
     const [open, setOpen] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false);
     const audioElement = useRef(null)
+
+    useEffect(()=> {
+        console.log("change detected");
+    }, [likes])
 
     const handlePlayClick = () => {
         if (isPlaying) {
@@ -51,9 +66,20 @@ export default function Podcast({name, title, image, source, audio, description}
         setOpen(false);
     }
 
+    const handleLikeClick = () => {
+        console.log("old likes", likes)
+        likes += 1
+        console.log("new likes", likes)
+    }
+
+    const handleDislikeClick = () => {
+        console.log("Disliked the podcast!")
+        console.log(id)
+    }
+
     return (<div>
-        <Card style={{width: "50vw"}}>
-            <CardActionArea style={{display: "grid", gridTemplateColumns: "150px 1fr 50px"}} onClick={()=> setOpen(true)}>
+        <Card style={{width: "50vw", display: "grid", "gridTemplateColumns": "1fr 50px"}}>
+            <CardActionArea style={{display: "grid", gridTemplateColumns: "150px 1fr"}} onClick={()=> setOpen(true)}>
             <CardMedia component="img" 
             src={image} alt="Podcast Cover" 
             style={{height: 75, width: 75, justifySelf: "center"}}
@@ -68,6 +94,16 @@ export default function Podcast({name, title, image, source, audio, description}
                 </CardContent>
             </Box>
             </CardActionArea>
+            <Box style={{display: 'grid', gridTemplateRows: "1fr 1fr"}}>
+                <_IconButton>
+                    <ThumbUpIcon />
+                    <Typography variant="subtitle2" component="div">{likes}</Typography>
+                </_IconButton>
+                <_IconButton>
+                    <ThumbDownIcon />
+                    <Typography variant="subtitle2" component="div">{dislikes}</Typography>
+                </_IconButton>
+            </Box>
         </Card>
 
         <Dialog open={open} onBackdropClick={handleClose}>
@@ -92,7 +128,17 @@ export default function Podcast({name, title, image, source, audio, description}
                     <CardMedia component="img" src={image} alt="PodcastCover" />
                 </Card>
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{display: "flex", justifyContent: "space-between"}}>
+                <Box style={{display: "flex", justifyContent: "space-between"}}>
+                <IconButton onClick={handleLikeClick}>
+                    <ThumbUpIcon sx={{}} />
+                    <Typography variant="subtitle2" component="div">{likes}</Typography>
+                </IconButton>
+                <IconButton onClick={handleDislikeClick}>
+                    <ThumbDownIcon />
+                    <Typography variant="subtitle2" component="div">{dislikes}</Typography>
+                </IconButton>
+                </Box>
                 <Button onClick={handleClose}>Close</Button>
             </DialogActions>
 

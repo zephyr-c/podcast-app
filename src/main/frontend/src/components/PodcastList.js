@@ -4,6 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import AddPodcast from './AddPodcast';
 import Podcast from './Podcast';
 
+
 const exampleData = {
       "name": "Brain Sparks",
       "description": "This podcast is hosted by usability and UI design expert, Jared Spool. It offers tona of value with many industry leaders sharing insights on usability, UX design, and UI design.",
@@ -21,7 +22,16 @@ export default function PodcastList({ data }){
         {data.map((podcast, idx) => {
             return (
             <ListItem>
-                <Podcast key={idx} name={podcast.name} title={podcast.title} image={podcast.imageUrl} source={podcast.sourceUrl} audio={podcast.audioUrl} description={podcast.description} />
+                <Podcast key={idx} 
+                name={podcast.name} 
+                title={podcast.title} 
+                image={podcast.imageUrl} 
+                source={podcast.sourceUrl} 
+                audio={podcast.audioUrl} 
+                description={podcast.description}
+                likes={podcast.numLikes}
+                dislikes={podcast.numDislikes}
+                id={podcast.id} />
             </ListItem>)
         })}
     </List>
