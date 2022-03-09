@@ -1,25 +1,16 @@
 import './App.css';
 import { useEffect, useReducer } from 'react';
 import { getPodcasts } from './utils/api';
+import { actionLoadData } from './utils/actions';
 import PodcastList from './components/PodcastList';
 import AddPodcast from './components/AddPodcast';
-
-function reducer(state, action){
-  switch (action.type){
-    case 'load':
-      return {podcasts: action.data};
-    case 'add':
-      return {podcasts: [...state.podcasts, action.data]};
-    default:
-      throw new Error();
-  }
-}
+import useAppState from './utils/useAppState';
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, {podcasts: []})
+  const {state, dispatch} = useAppState();
 
   useEffect(() => {
-    getPodcasts().then(res => dispatch({type: 'load', data: res.data}))
+    getPodcasts().then(res => dispatch(actionLoadData(res.data)))
   }, [])
 
   return (

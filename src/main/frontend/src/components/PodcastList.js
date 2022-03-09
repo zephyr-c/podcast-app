@@ -1,9 +1,8 @@
 import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import AddPodcast from './AddPodcast';
 import Podcast from './Podcast';
-
+import { actionLikePodcast, actionDislikePodcast } from '../utils/actions';
 
 const exampleData = {
       "name": "Brain Sparks",
@@ -14,15 +13,17 @@ const exampleData = {
       "title": "The Tension of Art and Science When Communicating Complex User Research"
     }
 
-export default function PodcastList({ data }){
-
+export default function PodcastList({ data, dispatch }){
+    const handleVote = (id, voteType) => {
+        voteType === 1 ? dispatch(actionLikePodcast(id)) : dispatch(actionDislikePodcast(id));
+    }
     return (
     <div style={{display: "flex", flexFlow: "column", alignItems: "center"}}>
     <List>
         {data.map((podcast, idx) => {
             return (
             <ListItem>
-                <Podcast key={idx} 
+                <Podcast key={idx}
                 name={podcast.name} 
                 title={podcast.title} 
                 image={podcast.imageUrl} 
@@ -31,7 +32,8 @@ export default function PodcastList({ data }){
                 description={podcast.description}
                 likes={podcast.numLikes}
                 dislikes={podcast.numDislikes}
-                id={podcast.id} />
+                id={podcast.id}
+                vote={handleVote} />
             </ListItem>)
         })}
     </List>

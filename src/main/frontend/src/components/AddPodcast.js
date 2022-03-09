@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { addPodcast } from '../utils/api';
+import { actionAddPodcast } from "../utils/actions";
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
@@ -49,7 +50,7 @@ export default function AddPodcast({dispatch}) {
         addPodcast(newPodcast)
         .then((response) => {
           if(response.status === 201){
-            dispatch({type: 'add', data: newPodcast})
+            dispatch(actionAddPodcast(newPodcast))
             console.log("succuessfully added ", newPodcast)
           }
         })

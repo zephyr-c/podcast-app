@@ -41,7 +41,7 @@ const _IconButton = styled('IconButton')({
 // TODO: Add functionality for likes and dislikes
 // TODO: look into uploader(for songs?)
 
-export default function Podcast({key, name, title, image, source, audio, description, likes, dislikes, id}){
+export default function Podcast({name, title, image, source, audio, description, likes, dislikes, id, vote}){
     const classes = useStyles();
     const [open, setOpen] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false);
@@ -67,14 +67,11 @@ export default function Podcast({key, name, title, image, source, audio, descrip
     }
 
     const handleLikeClick = () => {
-        console.log("old likes", likes)
-        likes += 1
-        console.log("new likes", likes)
+        vote(id, 1);
     }
 
     const handleDislikeClick = () => {
-        console.log("Disliked the podcast!")
-        console.log(id)
+        vote(id, -1);
     }
 
     return (<div>
