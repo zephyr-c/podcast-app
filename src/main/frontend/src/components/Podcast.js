@@ -12,33 +12,28 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import {styled, spacing} from '@mui/system';
 import podcast_placeholder from '../podcast_placeholder.jpg';
+import { likePodcast, dislikePodcast } from "../utils/api";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 const useStyles = makeStyles((theme) => ({
-    podcastCard: {
-        display: "flex",
-        height: "15vh",
-        width: "75vw", 
-        padding: "5px",
-        justifyContent: "space-around",
-        alignItems: "center",
-        gap: "2em",
+    cardButton: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    thumbnail: {
-        height: 75,
-        width: 75
-    }
+    dialogButton: {},
 }));
 
-const _IconButton = styled('IconButton')({
+const ContentBox = styled('Box')({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
 })
 
 // TODO: Style player modal, structure layout, add description
-// TODO: Add buttons for likes and dislikes
-// TODO: Add functionality for likes and dislikes
 // TODO: look into uploader(for songs?)
 
 export default function Podcast({name, title, image, source, audio, description, likes, dislikes, id, vote}){
@@ -67,11 +62,33 @@ export default function Podcast({name, title, image, source, audio, description,
     }
 
     const handleLikeClick = () => {
-        vote(id, 1);
+        likePodcast(id)
+        .then(res => res.status === 200 && vote(id, 1))
+        .catch((error) => {
+          if (error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request)
+          } else {
+            console.log('Error', error.message)
+          }
+        })
     }
 
     const handleDislikeClick = () => {
-        vote(id, -1);
+        dislikePodcast(id)
+        .then(res => res.status === 200 && vote(id, 0))
+        .catch((error) => {
+          if (error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request)
+          } else {
+            console.log('Error', error.message)
+          }
+        })
     }
 
     return (<div>
@@ -92,37 +109,39 @@ export default function Podcast({name, title, image, source, audio, description,
             </Box>
             </CardActionArea>
             <Box style={{display: 'grid', gridTemplateRows: "1fr 1fr"}}>
-                <_IconButton>
+                <IconButton className={classes.cardButton}>
                     <ThumbUpIcon />
                     <Typography variant="subtitle2" component="div">{likes}</Typography>
-                </_IconButton>
-                <_IconButton>
+                </IconButton>
+                <IconButton className={classes.cardButton}>
                     <ThumbDownIcon />
                     <Typography variant="subtitle2" component="div">{dislikes}</Typography>
-                </_IconButton>
+                </IconButton>
             </Box>
         </Card>
 
         <Dialog open={open} onBackdropClick={handleClose}>
             <DialogContent>
                 <Card>
-                    <audio src={audio} ref={audioElement}/>
-                    <Box style={{display: 'flex', flexDirection: 'column'}}>
-                        <CardContent>
-                            <Typography>
-                                {title}
-                            </Typography>
+                    <ContentBox>
+                        <CardContent style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             <Typography>
                                 {name}
                             </Typography>
+                            <CardMedia component="img" src={image} style={{height: 150, width: 150}} alt="PodcastCover" />
+                            <Typography>
+                                {title}
+                            </Typography>
+                            {/* <audio src={audio} ref={audioElement} controls/> */}
+                            <AudioPlayer src={audio} />
                         </CardContent>
-                        <Box>
-                            <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                        
+                        {/* <Box>
+                            <IconButton aria-label="play/pause" fontSize="large" onClick={handlePlayClick}>
                                 {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
                             </IconButton>
-                        </Box>
-                    </Box>
-                    <CardMedia component="img" src={image} alt="PodcastCover" />
+                        </Box> */}
+                    </ContentBox>
                 </Card>
             </DialogContent>
             <DialogActions style={{display: "flex", justifyContent: "space-between"}}>
