@@ -37,21 +37,8 @@ const ContentBox = styled('Box')({
 export default function Podcast({name, title, image, source, audio, description, likes, dislikes, id, vote}){
     const classes = useStyles();
     const [open, setOpen] = useState(false)
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioElement = useRef(null)
-
-    const handlePlayClick = () => {
-        if (isPlaying) {
-            audioElement.current.pause();
-            setIsPlaying(false);
-        } else {
-            audioElement.current.play();
-            setIsPlaying(true);
-        }
-    }
 
     const handleClose = () => {
-        setIsPlaying(false);
         setOpen(false);
     }
 
@@ -126,15 +113,8 @@ export default function Podcast({name, title, image, source, audio, description,
                             <Typography>
                                 {title}
                             </Typography>
-                            {/* <audio src={audio} ref={audioElement} controls/> */}
                             <AudioPlayer src={audio} />
                         </CardContent>
-                        
-                        {/* <Box>
-                            <IconButton aria-label="play/pause" fontSize="large" onClick={handlePlayClick}>
-                                {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-                            </IconButton>
-                        </Box> */}
                     </ContentBox>
                 </Card>
             </DialogContent>

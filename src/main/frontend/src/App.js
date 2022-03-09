@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import { getPodcasts } from './utils/api';
 import { actionLoadData } from './utils/actions';
 import PodcastList from './components/PodcastList';
@@ -23,9 +23,3 @@ function App() {
 }
 
 export default App;
-
-
-/*
-newPodcasts = [...state.podcasts]
-newPodcasts
-*/
