@@ -58,6 +58,11 @@ Applogies for any confusing explanations here, writing very fast.
 #### Usage of at least 1 Object Oriented principle
 Uses abstraction and encapsulation in both server side functions from controller going through service/repository to abstract away from places that don't need access to that information
 
+### If I had more time, I would:
+* Add some sort of authentication or make use of session data/cookies to prevent one person from liking or disliking a podcast multiple times.
+* Add some sort of user account creation function so users can be logged in and have their own personal podcast lists
+* 
+
 ### Live Link:
 I honestly spent a panicked amount of time trying to deploy this before the deadline, unfortunately without success
 https://stark-waters-88529.herokuapp.com/
