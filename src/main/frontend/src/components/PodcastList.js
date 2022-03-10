@@ -11,6 +11,8 @@ export default function PodcastList({ data, sortBy, dispatch }){
             const options = {
                 name: 'name',
                 title: 'title',
+                numLikes: 'numLikes',
+                numDislikes: 'numDislikes'
             }
             const sortValue = options[option];
             const sorted = [...data].sort((a, b) => (a[sortValue] > b[sortValue]) ? 1 : -1);
@@ -26,16 +28,10 @@ export default function PodcastList({ data, sortBy, dispatch }){
     }
     return (
     <div style={{display: "flex", flexFlow: "column", alignItems: "center"}}>
-    <select onChange={(e) => {
-        dispatch(actionSortBy(e.target.value))}}>
-        <option value="id"></option>
-        <option value="name">Name</option>
-        <option value="title">Title</option>
-    </select>
     <List>
         {data.map((podcast, idx) => {
             return (
-            <ListItem key={idx}>
+            <ListItem key={idx} color="primary">
                 <Podcast
                 name={podcast.name} 
                 title={podcast.title} 
@@ -46,7 +42,8 @@ export default function PodcastList({ data, sortBy, dispatch }){
                 likes={podcast.numLikes}
                 dislikes={podcast.numDislikes}
                 id={podcast.id}
-                vote={handleVote} />
+                vote={handleVote}
+                dispatch={dispatch} />
             </ListItem>)
         })}
     </List>

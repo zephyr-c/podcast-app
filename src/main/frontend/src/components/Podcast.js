@@ -11,7 +11,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import {styled, spacing} from '@mui/system';
 import podcast_placeholder from '../podcast_placeholder.jpg';
-import { likePodcast, dislikePodcast } from "../utils/api";
+import { voteOnPodcast } from "../utils/requests";
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -29,13 +29,11 @@ const ContentBox = styled('Box')({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    color: 'primary'
 })
 
-// TODO: Style player modal, structure layout, add description
-// TODO: look into uploader(for songs?)
-
-export default function Podcast({name, title, image, source, audio, description, likes, dislikes, id, vote}){
+export default function Podcast({name, title, image, source, audio, description, likes, dislikes, id, vote, dispatch}){
     const classes = useStyles();
     const [open, setOpen] = useState(false)
 
@@ -44,33 +42,11 @@ export default function Podcast({name, title, image, source, audio, description,
     }
 
     const handleLikeClick = () => {
-        likePodcast(id)
-        .then(res => res.status === 200 && vote(id, 1))
-        .catch((error) => {
-          if (error.response){
-            console.log(error.response.data);
-            console.log(error.response.status);
-          } else if (error.request) {
-            console.log(error.request)
-          } else {
-            console.log('Error', error.message)
-          }
-        })
+        voteOnPodcast(id, 1, dispatch)
     }
 
     const handleDislikeClick = () => {
-        dislikePodcast(id)
-        .then(res => res.status === 200 && vote(id, 0))
-        .catch((error) => {
-          if (error.response){
-            console.log(error.response.data);
-            console.log(error.response.status);
-          } else if (error.request) {
-            console.log(error.request)
-          } else {
-            console.log('Error', error.message)
-          }
-        })
+        voteOnPodcast(id, 0, dispatch)
     }
 
     return (<div>
@@ -85,8 +61,8 @@ export default function Podcast({name, title, image, source, audio, description,
                 }}/>
             <Box>
                 <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">{name}</Typography>
-                    <Typography variant="subtitle1">{title}</Typography>
+                    <Typography gutterBottom variant="h6" color= "primary" component="div">{name}</Typography>
+                    <Typography variant="subtitle1" color="secondary">{title}</Typography>
                 </CardContent>
             </Box>
             </CardActionArea>
@@ -116,11 +92,11 @@ export default function Podcast({name, title, image, source, audio, description,
                 event.target.src = podcast_placeholder
                 event.onerror = null 
                 }}/>
-                            <Typography>
+                            <Typography color="primary">
                                 {title}
                             </Typography>
                             <AudioPlayer src={audio} onError={(e) => alert(`Cannot load audio from ${e.target.src}`)} />
-                            <Typography sx={{pt: 5}}variant="body2">
+                            <Typography sx={{pt: 5}} color="primary" variant="body2">
                                 {description}
                             </Typography>
                         </CardContent>
@@ -130,7 +106,7 @@ export default function Podcast({name, title, image, source, audio, description,
             <DialogActions style={{display: "flex", justifyContent: "space-between"}}>
                 <Box style={{display: "flex", justifyContent: "space-between"}}>
                 <IconButton onClick={handleLikeClick}>
-                    <ThumbUpIcon sx={{}} />
+                    <ThumbUpIcon />
                     <Typography variant="subtitle2" component="div">{likes}</Typography>
                 </IconButton>
                 <IconButton onClick={handleDislikeClick}>

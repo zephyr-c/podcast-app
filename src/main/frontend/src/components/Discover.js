@@ -14,12 +14,7 @@ export default function Discover() {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = () => {
-       let payload = {
-           term: searchTerm,
-           media: "podcast",
-           limit: 50,
-        }
-        performSearch(setSearchResults, payload)
+        performSearch(setSearchResults, searchTerm)
     }
 
     const toggleOpenClose = () => {
@@ -50,7 +45,7 @@ export default function Discover() {
                     {searchResults && <DiscoveryResults data={searchResults}/>}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={toggleOpenClose}>Cancel</Button>
+                    <Button onClick={toggleOpenClose}>Close</Button>
                     <Button onClick={handleClick}>Search</Button>
                 </DialogActions>
             </Dialog>

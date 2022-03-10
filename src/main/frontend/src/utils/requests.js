@@ -1,5 +1,5 @@
 import {readQuery, createQuery, updateQuery, discover} from './api.js'
-import { actionAddPodcast } from './actions.js'
+import { actionAddPodcast, actionLikePodcast, actionDislikePodcast } from './actions.js'
 
 
 /////////////////// Podcast Requests ///////////////////
@@ -19,9 +19,13 @@ export const addPodcast = (newPodcast, dispatch) => {
     
 }
 
-export const likePodcast = () => {}
-
-export const dislikePodcast = () => {}
+export const voteOnPodcast = (podcastId, vote, dispatch) => {
+    const action = vote === 1 ? "like" : "dislike";
+    return updateQuery({id: podcastId, action: action})
+    .then((response) => 
+        response.status === 200 && 
+        dispatch(vote === 1 ? actionLikePodcast(podcastId) : actionDislikePodcast(podcastId)))
+}
 
 
 /////////////////// Discovery Requests ///////////////////
@@ -37,7 +41,12 @@ function parseResult(result) {
     }
 }
 
-export const performSearch = (updateState, params) => {
+export const performSearch = (updateState, searchTerm) => {
+        let params = {
+            term: searchTerm,
+            media: "podcast",
+            limit: 50
+        }
         discover(params)
         .then(res => {
             let formattedResults = res.data.results.map(p => parseResult(p))

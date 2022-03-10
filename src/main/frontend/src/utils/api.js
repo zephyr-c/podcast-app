@@ -5,20 +5,15 @@ const backendAddress = "http://localhost:8080/api/podcasts"
 
 const server = mockServer;
 
-export async function getPodcasts() {
-    return await axios.get(server)
-}
-
-export async function addPodcast(newPodcast) {
-    return await axios.post(server, newPodcast)
-}
-
-export async function likePodcast(id){
-    return await axios.put(server + `/${id}/like`)
-}
-
-export async function dislikePodcast(id){
-    return await axios.put(server + `/${id}/dislike`)
+const errorLogger = (error) => {
+    if (error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request)
+          } else {
+            console.log('Error', error.message)
+          }
 }
 
 export async function discover(params){
@@ -26,11 +21,16 @@ export async function discover(params){
 }
 
 export function builder(id, action){
-    return `/{id}/{action}`
+    return `/${id}/${action}`
 }
 
 export async function readQuery(){
+    try {
     return await axios.get(server);
+    }
+    catch (error) {
+        errorLogger(error)
+    }
 }
 
 export async function createQuery(query){
@@ -38,29 +38,15 @@ export async function createQuery(query){
     return await axios.post(server, query.data)
     }
     catch (error) {
-        console.error("error =>", error)
+        errorLogger(error)
     }
 }
 
 export async function updateQuery(query){
-    return await axios.put(server + builder(query.id, query.action))
+    try {
+        return await axios.put(server + builder(query.id, query.action))
+    }
+    catch (error){
+        errorLogger(error)
+    }
 }
-
-/*
-queries...
-builder(id, endpoint)
-    returns `/{id}/{endpoint}
-
-async readQuery(query)
-    options = makeOptions('get', query.params, query.body)
-    return await axios(options)
-
-async createQuery(data)
-    return await axios.post()
-
-async updateQuery(query)
-    return await axios.put(server + builder(id, action))
-
-
-
-*/

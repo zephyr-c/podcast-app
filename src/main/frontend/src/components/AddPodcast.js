@@ -53,6 +53,8 @@ export default function AddPodcast({dispatch}) {
             "sourceUrl": source,
             "audioUrl": audio,
             "description": description,
+            "numLikes": 0,
+            "numDislikes": 0
         }
 
         addPodcast(newPodcast, dispatch)
@@ -62,7 +64,7 @@ export default function AddPodcast({dispatch}) {
 
     return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Add Podcast
       </Button>
       <Dialog
