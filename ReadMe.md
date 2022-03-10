@@ -26,7 +26,12 @@ Discover:
 ![](src/screenshots/discover.png)
 
 ### File Structure And Architecture:
-
+High Level Overview:
+Project has a frontend written in React and a backend server created with Java Spring Boot.
+Data model has a single entity, the Podcast. The backend has REST controlled endpoints that use functions provided by a Service class which in turn utilizes a Repository class to communicate with the database.
+I chose to use a Postgres database for this project because it is what I am most familiar with. A NoSQL database would probably have worked just as well given the simple nature of the application.
+The front end utilizes views and controllers to serve content and make requests to the backend server. As much as possible, the business logic is separated out from the view componenets.
+Right now, the application utilizes a command line runner to load database when application starts. It is configured to drop tables when application ends, and create them again on new run. This is for the dev environment, a production database would obviously need to persist.
 
 ### Requirements:
 #### Application can be interacted with in a minimum of 3 ways
@@ -50,6 +55,8 @@ Discover:
 
 #### Usage of at least 1 Object Oriented principle
 Uses abstraction and encapsulation in both server side functions from controller going through service/repository to abstract away from places that don't need access to that information
+
+### Live Link:
 
 ### Installation Instructions
 download project
