@@ -32,6 +32,7 @@ function parseResult(result) {
         collectionViewUrl: result.collectionViewUrl,
         image100: result.artworkUrl100,
         image60: result.artworkUrl60,
+        image600: result.artworkUrl600,
         feedUrl: result.feedUrl,
     }
 }

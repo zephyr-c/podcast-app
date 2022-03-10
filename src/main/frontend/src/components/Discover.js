@@ -17,7 +17,7 @@ export default function Discover() {
        let payload = {
            term: searchTerm,
            media: "podcast",
-           limit: 5,
+           limit: 50,
         }
         performSearch(setSearchResults, payload)
     }
