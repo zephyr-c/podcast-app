@@ -11,6 +11,7 @@
 	<groupId>com.zephyr</groupId>
 	<artifactId>music-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>music-app</name>
 	<description>Music application that allows users to save, search, and play a list of songs and podcasts.</description>
 	<properties>

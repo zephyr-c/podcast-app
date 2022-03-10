@@ -33,6 +33,8 @@ I chose to use a Postgres database for this project because it is what I am most
 The front end utilizes views and controllers to serve content and make requests to the backend server. As much as possible, the business logic is separated out from the view componenets.
 Right now, the application utilizes a command line runner to load database when application starts. It is configured to drop tables when application ends, and create them again on new run. This is for the dev environment, a production database would obviously need to persist.
 
+Applogies for any confusing explanations here, writing very fast.
+
 ### Requirements:
 #### Application can be interacted with in a minimum of 3 ways
 1. Users can view the list of podcasts
@@ -57,7 +59,8 @@ Right now, the application utilizes a command line runner to load database when 
 Uses abstraction and encapsulation in both server side functions from controller going through service/repository to abstract away from places that don't need access to that information
 
 ### Live Link:
-
+I honestly spent a panicked amount of time trying to deploy this before the deadline, unfortunately without success
+https://stark-waters-88529.herokuapp.com/
 ### Installation Instructions
 download project
 
