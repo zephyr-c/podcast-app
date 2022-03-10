@@ -9,6 +9,21 @@ An application that allows users to save, sort, and play a list of podcasts.
 * Users can sort the list by name, title, number of likes, and number of dislikes.
 
 ## Project Details
+Main Page:
+![](src/screenshots/entry.png)
+
+Sort By Name:
+![](src/screenshots/sortName.png)
+Sort By Title:
+![](src/screenshots/SortTitle.png)
+Sort By Likes:
+![](src/screenshots/sortLikes.png)
+Sort By Dislikes:
+![](src/screenshots/sortDislikes.png)
+Open/View/Play Podcast:
+![](src/screenshots/openPodcast.png)
+Discover:
+![](src/screenshots/discover.png)
 
 ### File Structure And Architecture:
 
