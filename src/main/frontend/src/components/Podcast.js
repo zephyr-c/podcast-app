@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import { makeStyles } from "@mui/styles";
 import {Card, CardContent, CardMedia, CardActionArea} from "@mui/material";
 import {Dialog, DialogContent, DialogActions} from "@mui/material";
+import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -101,19 +102,27 @@ export default function Podcast({name, title, image, source, audio, description,
             </Box>
         </Card>
 
-        <Dialog open={open} onBackdropClick={handleClose}>
+        <Dialog open={open} onBackdropClick={handleClose} maxWidth="xs">
             <DialogContent>
                 <Card>
                     <ContentBox>
                         <CardContent style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             <Typography>
+                                <Link href={source} underline="none" target="_blank" rel="noreferrer noopener">
                                 {name}
+                                </Link>
                             </Typography>
-                            <CardMedia component="img" src={image} style={{height: 150, width: 150}} alt="PodcastCover" />
+                            <CardMedia component="img" src={image} style={{height: 150, width: 150}} alt="PodcastCover" onError={event => {
+                event.target.src = podcast_placeholder
+                event.onerror = null 
+                }}/>
                             <Typography>
                                 {title}
                             </Typography>
-                            <AudioPlayer src={audio} />
+                            <AudioPlayer src={audio} onError={(e) => alert(`Cannot load audio from ${e.target.src}`)} />
+                            <Typography sx={{pt: 5}}variant="body2">
+                                {description}
+                            </Typography>
                         </CardContent>
                     </ContentBox>
                 </Card>

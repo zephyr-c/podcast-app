@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import { addPodcast } from '../utils/api';
-import { actionAddPodcast } from "../utils/actions";
+import { addPodcast } from '../utils/requests';
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
@@ -37,6 +36,15 @@ export default function AddPodcast({dispatch}) {
         setOpen(false);
     }
 
+    const reset = () => {
+      setName("");
+      setTitle("");
+      setImage("");
+      setSource("");
+      setAudio("");
+      setDescription("");
+    }
+
     const handleSubmit = () => {
         const newPodcast = {
             "name": name,
@@ -47,25 +55,8 @@ export default function AddPodcast({dispatch}) {
             "description": description,
         }
 
-        addPodcast(newPodcast)
-        .then((response) => {
-          if(response.status === 201){
-            console.log(response)
-            dispatch(actionAddPodcast({...newPodcast, id: response.data}))
-            console.log("succuessfully added ", newPodcast)
-          }
-        })
-        .catch((error) => {
-          if (error.response){
-            console.log(error.response.data);
-            console.log(error.response.status);
-          } else if (error.request) {
-            console.log(error.request)
-          } else {
-            console.log('Error', error.message)
-          }
-        })
-
+        addPodcast(newPodcast, dispatch)
+        reset();
         handleClose();
     }
 
