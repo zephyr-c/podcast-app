@@ -49,3 +49,13 @@ Discover:
 * Application utilizes the iTunes search API to allow users to discover new podcasts based on a search term.
 
 #### Usage of at least 1 Object Oriented principle
+Uses abstraction and encapsulation in both server side functions from controller going through service/repository to abstract away from places that don't need access to that information
+
+### Installation Instructions
+download project
+
+run `mvn clean install` to install dependencies
+
+run `./mvnw spring-boot:run` to run program
+
+check out the project at `localhost:8080/`
