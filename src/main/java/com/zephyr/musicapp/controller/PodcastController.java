@@ -11,9 +11,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.HashMap;
 
-// TODO: Add error checking to endpoints?
-// TODO: Evaluate endpoint strategy for likes and dislikes, decide where that functionality lives
-
 @RestController
 @RequestMapping(value = "api/podcasts")
 public class PodcastController {

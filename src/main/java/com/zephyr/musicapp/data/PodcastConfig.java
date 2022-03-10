@@ -39,6 +39,8 @@ public class PodcastConfig {
                             .audioUrl((String)podcast.get("audio"))
                             .imageUrl((String)podcast.get("image"))
                             .title((String)podcast.get("title"))
+                            .numLikes((int) Math.floor(Math.random() * 51))
+                            .numDislikes((int) Math.floor(Math.random() * 51))
                             .build();
                     service.create(currPodcast);
                 });

@@ -19,6 +19,7 @@ export default function Discover() {
 
     const toggleOpenClose = () => {
         setSearchTerm("")
+        setSearchResults([])
         setIsOpen(!isOpen)
     }
 
@@ -28,7 +29,7 @@ export default function Discover() {
                 Discover!
             </Button>
 
-            <Dialog open={isOpen} onClose={toggleOpenClose} aria-labelledby="discover-podcasts-title">
+            <Dialog open={isOpen} onClose={toggleOpenClose} aria-labelledby="discover-podcasts-title" sx={{textAlign: "center"}}>
                 <DialogTitle id="discover-podcasts-title">Discover New Podcasts</DialogTitle>
                 <DialogContentText>
                     Search Apple Podcasts to discover new shows!
