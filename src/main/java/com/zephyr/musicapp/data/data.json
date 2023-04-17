@@ -1,20 +1,20 @@
 {
   "podcasts": [
     {
-      "name": "Brain Sparks",
-      "description": "This podcast is hosted by usability and UI design expert, Jared Spool. It offers tona of value with many industry leaders sharing insights on usability, UX design, and UI design.",
-      "source": "https://www.uie.com/brainsparks/topics/podcasts/",
-      "audio": "https://downloads.uie.fm/7/389/asset.uie.com/BSAL/UIEP015_Shipe_Goodwin.mp3",
-      "image": "https://uie.fm/assets/album-art/the-uie-podcast.png",
-      "title": "The Tension of Art and Science When Communicating Complex User Research"
+      "name": "The Real Python Podcast",
+      "description": "A weekly Python podcast hosted by Christopher Bailey with interviews, coding tips, and conversation with guests from the Python community.",
+      "source": "http://www.freshtilledsoil.com/category/podcast/",
+      "audio": "https://files.realpython.com/podcasts/RPP_E150_03_Duarte.07fca6eba935.mp3",
+      "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/3b/e2/6e/3be26e50-eb10-aee7-fd82-63d351127c77/mza_3921033404436162939.png/1200x600wp.png",
+      "title": "Lessons Learned From Four Years Programming With Python"
     },
     {
-      "name": "The Dirt Show",
-      "description": "The Dirt Show is a podcast hosted by the team behind the UX design agency, Fresh Tilled Soil. One cool thing about this podcast is some topics follow a mini-series format, with multiple episodes and different guests talking about the same topic. For example, they have a mini-series on topics such as \"designing your career\" and \"designing the future\".",
-      "source": "http://www.freshtilledsoil.com/category/podcast/",
-      "audio": "http://traffic.libsyn.com/thedirt/James_Aylward_-_Final.mp3",
-      "image": "",
-      "title": "Data-Driven Design with James Aylward of Pluralsight"
+      "name": "The Scala Logs",
+      "description": "An interview podcast for those interested in Scala and functional programming.",
+      "source": "https://podcasts.apple.com/us/podcast/jakub-koz%C5%82owski-from-highschool-to-teaching-scala/id1497591118?i=1000520503381",
+      "audio": "https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-4-6/df9e23c6-f810-9e6a-2770-89beee1593c0.mp3",
+      "image": "https://spotlight.radiopublic.com/images/thumbnail?url=https%3A%2F%2Fd3t3ozftmdmh3i.cloudfront.net%2Fproduction%2Fpodcast_uploaded_nologo%2F2996372%2F2996372-1582419302891-624f3e43d405f.jpg",
+      "title": "Jakub Kozłowski: From Highschool to Teaching Scala"
     },
     {
       "name": "UX Podcast",

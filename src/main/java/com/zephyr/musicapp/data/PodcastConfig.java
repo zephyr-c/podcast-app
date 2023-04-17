@@ -25,7 +25,7 @@ public class PodcastConfig {
         return args -> {
             JSONParser jsonParser = new JSONParser();
 
-            try (FileReader reader = new FileReader("/Users/zephyr/IdeaProjects/music-app/src/main/java/com/zephyr/musicapp/data/data.json")){
+            try (FileReader reader = new FileReader("src/main/java/com/zephyr/musicapp/data/data.json")){
                 Object obj = jsonParser.parse(reader);
                 JSONObject data = (JSONObject) obj;
                 JSONArray podList = (JSONArray) data.get("podcasts");

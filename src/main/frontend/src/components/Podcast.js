@@ -67,11 +67,11 @@ export default function Podcast({name, title, image, source, audio, description,
             </Box>
             </CardActionArea>
             <Box style={{display: 'grid', gridTemplateRows: "1fr 1fr"}}>
-                <IconButton className={classes.cardButton}>
+                <IconButton onClick={handleLikeClick} className={classes.cardButton}>
                     <ThumbUpIcon />
                     <Typography variant="subtitle2" component="div">{likes}</Typography>
                 </IconButton>
-                <IconButton className={classes.cardButton}>
+                <IconButton onClick={handleDislikeClick} className={classes.cardButton}>
                     <ThumbDownIcon />
                     <Typography variant="subtitle2" component="div">{dislikes}</Typography>
                 </IconButton>
